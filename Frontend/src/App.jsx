@@ -7,6 +7,7 @@ import Home from './components/Home/Home'
 import UserProfile from './components/UserProfile.jsx/UserProfile'
 import Therapists from './components/Therapists/Therapists'
 import Booking from './components/Booking/Booking'
+import UserSessions from './components/Sessions/UserSessions'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +15,7 @@ function App() {
   return (
     <>
      <Header/>
-     <Booking/>
+     <UserSessions/>
      <Footer/>
     </>
   )

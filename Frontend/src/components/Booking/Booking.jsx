@@ -25,9 +25,6 @@ const Booking = () => {
                         <option value="">Video Call</option>
                         <option value="">In person visit</option>
                     </select>
-                    <div>
-                        hfkashdfsh
-                    </div>
                     <button 
                     onClick={()=>setShowModal(true)}
                     className='absolute bg-[#3311C7] px-5 py-3 text-white rounded-md bottom-0 right-0'>Book Appointment</button>
