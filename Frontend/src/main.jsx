@@ -18,10 +18,10 @@ const router = createBrowserRouter(
       <Route path='role' element={<ChooseRole/>}/>
       <Route index element={<Home />} />
       <Route path='/patient'>
-        <Route index element={<Home />} />
-        <Route path='signup' element={<SignUp />}>
-          <Route path='otp' element={<OTPVerification/>}/>
-        </Route>
+        {/* <Route index element={<Home />} /> */}
+        <Route path='signup' element={<SignUp />}/>
+          {/* <Route path='otp' element={<OTPVerification/>}/> */}
+        {/* </Route> */}
         {/* <Route path='login'/> */}
         <Route path='sessions' element={<UserSessions/>}/>
         <Route path='therapists' element={<Therapists/>}/>

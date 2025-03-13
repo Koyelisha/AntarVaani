@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
     const location = useLocation()
-    const hideHeaderFooterRoutes = ["/patient/signup","/patient/signup/otp"]
+    const hideHeaderFooterRoutes = ["/patient/signup","/patient/signup/otp","/role"]
 
     const shouldHideHeaderFooter = hideHeaderFooterRoutes.some(route=>
         location.pathname.startsWith(route)
