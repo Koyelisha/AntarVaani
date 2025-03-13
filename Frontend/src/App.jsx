@@ -8,17 +8,19 @@ import Therapists from './components/Therapists/Therapists'
 import Booking from './components/Booking/Booking'
 import SignUp from './components/SignUp/SignUp'
 import OTPVerification from './components/OTPVerfication/OTPVerification'
+import TherapistsSignUp from './components/Therapists/TherapistsSignUp'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-     <Header/>
+     {/* <Header/>
      <Booking/>
      <Footer/> 
     <SignUp/>
-     <OTPVerification/>
+     <OTPVerification/> */}
+     <TherapistsSignUp/>
     </>
   )
 }
