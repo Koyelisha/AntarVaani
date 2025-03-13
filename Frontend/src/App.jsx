@@ -6,15 +6,13 @@ import Home from './components/Home/Home'
 import UserProfile from './components/UserProfile.jsx/UserProfile'
 import Therapists from './components/Therapists/Therapists'
 import Booking from './components/Booking/Booking'
+import SignUp from './components/SignUp/SignUp'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-     <Header/>
-     <Booking/>
-     <Footer/>
     </>
   )
 }

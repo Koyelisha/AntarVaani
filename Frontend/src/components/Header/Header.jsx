@@ -9,32 +9,39 @@ const Header = () => {
             </div>
             <ul className='flex gap-16 font-semibold text-lg items-center'> 
                 <li>
-                    {/* <NavLink to="/" className={({isActive})=>
+                    <NavLink to="/" className={({isActive})=>
                         `${isActive?"text-red-500":null} hover:text-red-500 cursor-pointer`
-                    }> */}
+                    }>
                         Home
-                    {/* </NavLink> */}
+                    </NavLink>
                 </li>
                 <li>
-                    {/* <NavLink to="/quiz" className={({isActive})=>
+                    <NavLink to="/quiz" className={({isActive})=>
                         `${isActive?"text-red-500":null} hover:text-red-500 cursor-pointer`
-                    }> */}
+                    }>
                         AI assistance
-                    {/* </NavLink> */}
+                    </NavLink>
                 </li>
                 <li>
-                    {/* <NavLink to="/contact" className={({isActive})=>
+                    <NavLink to="/patient/therapists" className={({isActive})=>
                         `${isActive?"text-red-500":null} hover:text-red-500 cursor-pointer`
-                    }> */}
-                        Contact
-                    {/* </NavLink> */}
+                    }>
+                        Therapists
+                    </NavLink>
                 </li>
                 <li>
-                    {/* <NavLink to="/profile" className={({isActive})=>
+                    <NavLink to="/patient/profile" className={({isActive})=>
                         `${isActive?"text-red-500":null} hover:text-red-500 cursor-pointer`
-                    }> */}
+                    }>
                         Profile
-                    {/* </NavLink> */}
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/patient/sessions" className={({isActive})=>
+                        `${isActive?"text-red-500":null} hover:text-red-500 cursor-pointer`
+                    }>
+                        Session Logs
+                    </NavLink>
                 </li>
             </ul>
             <ul className='flex gap-3 items-center'>
