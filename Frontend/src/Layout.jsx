@@ -6,12 +6,17 @@ import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
     const location = useLocation()
-    const hideHeaderFooterRoutes = [""]
+    const hideHeaderFooterRoutes = ["/patient/signup","/patient/signup/otp"]
+
+    const shouldHideHeaderFooter = hideHeaderFooterRoutes.some(route=>
+        location.pathname.startsWith(route)
+    )
+
     return (
         <div>
-            {!hideHeaderFooterRoutes.includes(location.pathname) && <Header/>}
+            {!shouldHideHeaderFooter && <Header/>}
             <Outlet/>
-            {!hideHeaderFooterRoutes.includes(location.pathname) &&  <Footer/>}
+            {!shouldHideHeaderFooter &&  <Footer/>}
         </div>
     );
 };

@@ -10,10 +10,12 @@ import SignUp from './components/SignUp/SignUp.jsx'
 import UserSessions from './components/Sessions/UserSessions.jsx'
 import Therapists from './components/Therapists/Therapists.jsx'
 import UserProfile from './components/UserProfile.jsx/UserProfile.jsx'
+import ChooseRole from './components/ChooseRole/ChooseRole.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
+      <Route path='role' element={<ChooseRole/>}/>
       <Route index element={<Home />} />
       <Route path='/patient'>
         <Route index element={<Home />} />
