@@ -42,15 +42,6 @@ const TherapistDashboard = () => {
             <p className="text-gray-600"><strong>Time:</strong> 10:00 AM - 5:00 PM</p>
           </div>
     
-          {/* Sessions */}
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold">Upcoming Sessions</h3>
-            <ul className="list-disc list-inside text-gray-600">
-              <li>Session with Alex - March 20, 3:00 PM</li>
-              <li>Session with Sarah - March 21, 10:00 AM</li>
-            </ul>
-          </div>
-    
           {/* Actions */}
           <div className="mt-6 flex justify-between">
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit Profile</button>
