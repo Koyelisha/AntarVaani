@@ -19,7 +19,7 @@ const Therapists = () => {
         }
         fetchTherapistData()
     }, [])
-
+    const navigate = useNavigate()
     return (
         <div className='h-screen bg-[#F1FAEE] py-24 px-16'>
             <div className='flex flex-col gap-3'>
@@ -37,7 +37,10 @@ const Therapists = () => {
                             <p className='text-xl '>Available days: {therapist.availableDays}</p>
                             <p className='text-xl '>Available time: {therapist.availableTime}</p>
                         </div>
-                        <button className='shadow-md px-5 py-2 bg-[#3311C7] absolute right-5 bottom-4 text-white font-semibold rounded-md'>Book Session</button>
+                        <button
+                        onClick={()=>{navigate(`/patient/booking/${therapist._id}`)}} 
+                        className='shadow-md px-5 py-2 bg-[#3311C7] absolute right-5 bottom-4 text-white font-semibold rounded-md'
+                        >Book Session</button>
                     </div>
                 ))}
 

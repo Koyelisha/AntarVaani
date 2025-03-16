@@ -9,8 +9,8 @@ const patientSchema = mongoose.Schema({
     address:String,
     bio:String,
     sessions:{
-        type:Array,
-        default:[]
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"session"
     },
     image:Buffer,
     otp:String,

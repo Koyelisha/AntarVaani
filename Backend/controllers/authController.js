@@ -93,6 +93,7 @@ module.exports.loginPatient = async(req,res)=>{
             const isMatch = await bcrypt.compare(password,patient.password);
                 if(isMatch){
                     let token = generateToken(patient);
+                    res.cookie("token",token)
                     return res.status(200).json({message:"Login Successful",token});
                 }else{
                     return res.status(401).send("Email or Password Incorrect");

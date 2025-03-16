@@ -25,4 +25,26 @@ router.get("/showTherapists",async(req,res)=>{
     
 })
 
+// Middleware: Check Auth
+const authenticateUser = (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+  
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+      if (err) return res.status(403).json({ message: "Forbidden" });
+      console.log("Decoded Token:", decoded); 
+      req.userId = decoded.id;
+      next();
+    });
+  };
+  
+  // Get Authenticated User
+  router.get("/api/auth/me", authenticateUser, async (req, res) => {
+    // const user = await patientModel.findById(req.userId).select("-password");
+    console.log("hello")
+    const user = await patientModel.findOne({email:req.userId}).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({ user });
+  });
+
 module.exports = router;
