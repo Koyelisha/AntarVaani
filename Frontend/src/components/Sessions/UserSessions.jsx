@@ -1,6 +1,8 @@
 import React from 'react';
+import useLoggedIn from '../../customHook/useLoggedIn/useLoggedIn';
 
 const UserSessions = () => {
+    useLoggedIn()
     return (
         <div className='h-screen bg-[#e8f4e4] py-24 px-16'>
             <h1 className='text-4xl font-bold text-[#1B0482] mb-4 text-center'>Upcoming Sessions</h1>

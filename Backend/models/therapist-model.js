@@ -4,19 +4,14 @@ const therapistSchema = mongoose.Schema({
     fullname:String,
     email:String,
     contact:String,
+    password:String,
     licenseNumber:String,
     issuingAuthority:String,
     licenseExpiryDate:Date,
     specialization:String,
     clinicName:String,
-    availableDays:{
-        type:Array,
-        default:[]
-    },
-    availableTime:{
-        type:Array,
-        default:[]
-    },
+    availableDays:String,
+    availableTime:String,
     image:Buffer,
     licenseDocument:Buffer,
     sessions:{
@@ -30,4 +25,4 @@ const therapistSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.Schema("therapist",therapistSchema)
+module.exports = mongoose.model("therapist",therapistSchema)

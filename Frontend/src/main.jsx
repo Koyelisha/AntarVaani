@@ -11,21 +11,23 @@ import UserSessions from './components/Sessions/UserSessions.jsx'
 import Therapists from './components/Therapists/Therapists.jsx'
 import UserProfile from './components/UserProfile.jsx/UserProfile.jsx'
 import ChooseRole from './components/ChooseRole/ChooseRole.jsx'
+import TherapistsSignUp from './components/Therapists/TherapistsSignUp.jsx'
+import TherapistDashboard from './components/TherapistDashboard/TherapistDashboard.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
+      <Route path='' element={<Home />} />
       <Route path='role' element={<ChooseRole/>}/>
-      <Route index element={<Home />} />
-      <Route path='/patient'>
-        {/* <Route index element={<Home />} /> */}
+      <Route path='patient'>
         <Route path='signup' element={<SignUp />}/>
-          {/* <Route path='otp' element={<OTPVerification/>}/> */}
-        {/* </Route> */}
-        {/* <Route path='login'/> */}
         <Route path='sessions' element={<UserSessions/>}/>
         <Route path='therapists' element={<Therapists/>}/>
         <Route path='profile' element={<UserProfile/>}/>
+      </Route>
+      <Route path='therapist'>
+          <Route path='signup' element={<TherapistsSignUp/>}/>
+          <Route path='dashboard' element={<TherapistDashboard/>}/>
       </Route>
     </Route>
   )

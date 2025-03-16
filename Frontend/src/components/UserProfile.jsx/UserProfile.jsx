@@ -1,8 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faGear } from '@fortawesome/free-solid-svg-icons';
+import useLoggedIn from "../../customHook/useLoggedIn/useLoggedIn";
 
 const UserProfile = () => {
+    useLoggedIn()
     return (
         <div className="flex justify-center items-center h-screen bg-[#F1FAEE]">
             <div className="flex gap-20 px-24 w-3/4 h-3/4 py-5 justify-start">

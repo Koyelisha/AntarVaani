@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
+import useLoggedIn from '../../customHook/useLoggedIn/useLoggedIn';
 
 const therapistsData = [
     {
@@ -40,6 +42,7 @@ const therapistsData = [
 ]
 
 const Therapists = () => {
+    useLoggedIn()
     return (
         <div className='h-screenbg-[#F1FAEE] py-24 px-16'>
             <div className='flex flex-col gap-3'>
