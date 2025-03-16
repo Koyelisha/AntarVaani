@@ -6,12 +6,12 @@ const TherapistHeader = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        let token = localStorage.getItem("token")
+        let token = localStorage.getItem("therapistToken")
         setIsLoggedIn(!!token);
     }, [])
 
     const logoutUser = ()=>{
-        localStorage.removeItem("token")
+        localStorage.removeItem("therapistToken")
         setIsLoggedIn(false)
         navigate("/")
     }

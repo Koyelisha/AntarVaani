@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
+import useTherapistLoggedIn from '../../customHook/useLoggedIn/useTherapistLoggedIn';
 
 const TherapistDashboard = () => {
-    
-
+  useTherapistLoggedIn()
   return (
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
           {/* Profile Header */}

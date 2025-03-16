@@ -71,7 +71,7 @@ const TherapistsSignUp = () => {
         }
       )
       alert("Therapist Account created successfully.")
-      localStorage.setItem("token",response.data.token)
+      localStorage.setItem("therapistToken",response.data.token)
       navigate("/therapist/dashboard")
     }catch(err){
       alert(err.message)
@@ -92,7 +92,7 @@ const TherapistsSignUp = () => {
         password:loginData.password
       })
       alert(response.data.message)
-      localStorage.setItem("token",response.data.token)
+      localStorage.setItem("therapistToken",response.data.token)
       navigate("/therapist/dashboard")
     }catch(err){
         console.log(err.message)
