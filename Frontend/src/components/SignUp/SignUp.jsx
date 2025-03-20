@@ -53,7 +53,6 @@ const SignUp = () => {
   }
 
   const loginPatient = async ()=>{
-    console.log(loginData)
     try{
       const response = await axios.post("http://localhost:3000/patient/login",{
           email:loginData.email,

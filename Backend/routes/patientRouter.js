@@ -3,7 +3,7 @@ const patientModel = require("../models/patient-model")
 const router = express.Router()
 const { signupPatient,verifyOTP,loginPatient } = require("../controllers/authController")
 const therapistModel = require("../models/therapist-model")
-
+const sessionModel = require("../models/session-model")
 
 router.get("/", (req, res) => {
     res.send("Hey!patient router working..")
@@ -26,25 +26,41 @@ router.get("/showTherapists",async(req,res)=>{
 })
 
 // Middleware: Check Auth
-const authenticateUser = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+// const authenticateUser = (req, res, next) => {
+//     const token = req.cookies.token;
+//     if (!token) return res.status(401).json({ message: "Unauthorized" });
   
-    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
-      if (err) return res.status(403).json({ message: "Forbidden" });
-      console.log("Decoded Token:", decoded); 
-      req.userId = decoded.id;
-      next();
-    });
-  };
+//     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+//       if (err) return res.status(403).json({ message: "Forbidden" });
+//       console.log("Decoded Token:", decoded); 
+//       req.userId = decoded.id;
+//       next();
+//     });
+//   };
   
-  // Get Authenticated User
-  router.get("/api/auth/me", authenticateUser, async (req, res) => {
-    // const user = await patientModel.findById(req.userId).select("-password");
-    console.log("hello")
-    const user = await patientModel.findOne({email:req.userId}).select("-password");
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json({ user });
-  });
+//   // Get Authenticated User
+//   router.get("/api/auth/me", authenticateUser, async (req, res) => {
+//     // const user = await patientModel.findById(req.userId).select("-password");
+//     console.log("hello")
+//     const user = await patientModel.findOne({email:req.userId}).select("-password");
+//     if (!user) return res.status(404).json({ message: "User not found" });
+//     res.json({ user });
+//   });
+
+router.get("/api",(req,res)=>{
+  let token = req.cookies;
+  res.send(token)
+  // res.send("hjgdsjfgsj")
+})
+
+router.get("/showSessions/:userId",async(req,res)=>{
+    try{
+        let allSessions = await sessionModel.find({patient:req.params.userId}).populate("therapist")
+        res.send(allSessions)
+    }catch(err){
+        res.send(err.message)
+    }
+   
+})
 
 module.exports = router;

@@ -8,10 +8,10 @@ const patientSchema = mongoose.Schema({
     age:Number,
     address:String,
     bio:String,
-    sessions:{
+    sessions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"session"
-    },
+    }],
     image:Buffer,
     otp:String,
     isVerified:{

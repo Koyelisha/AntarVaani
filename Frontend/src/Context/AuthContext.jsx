@@ -5,18 +5,22 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token,setToken] = useState("");
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("/patient/api/auth/me", { withCredentials: true }); // ✅ Send cookies
-        setUser(response.data.user);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   let storedToken = (localStorage.getItem("token"))
+  //   setToken(storedToken)
+  // }, [])
+
+  // useEffect(() => {
+  //   if (token) {
+  //     let decodedData = (jwtDecode(token))
+  //     setUser(decodedData)
+  //     console.log("decoded data: ", decodedData)
+  //   } else {
+  //     console.log("No token found")
+  //   }
+  // }, [token])
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 };

@@ -14,10 +14,10 @@ const therapistSchema = mongoose.Schema({
     availableTime:String,
     image:Buffer,
     licenseDocument:Buffer,
-    sessions:{
+    sessions:[{
             type:mongoose.Schema.Types.ObjectId,
             ref:"session"
-        },
+        }],
     otp:String,
     isVerified:{
         type:Boolean,

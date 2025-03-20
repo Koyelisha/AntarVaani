@@ -3,18 +3,34 @@ import { useParams } from 'react-router-dom';
 import BookingModal from '../Modals/BookingModal';
 import axios from 'axios'
 import { useAuth } from "../../Context/AuthContext"
+import {jwtDecode} from 'jwt-decode'
 
 const Booking = () => {
     const [showModal,setShowModal] = useState(false)
     const {therapistId} = useParams()
-    const { user } = useAuth();
-    console.log(user)
+    const [token,setToken] = useState("")
+    const [decode,setDecode] = useState("")
+    const [patientId,setPatientId] = useState("")
 
-    // const patientId = user?.patientId;
-    // console.log(patientId)
+    useEffect(()=>{
+        let storedToken = (localStorage.getItem("token"))
+        setToken(storedToken)
+    },[])
+    
+    useEffect(()=>{
+        if(token){
+            let decodedData = jwtDecode(token)
+            setDecode(decodedData)
+            setPatientId(decodedData.id)
+            console.log("decoded data: ",decodedData)
+        }else{
+            console.log("No token found")
+        }
+    },[token])
+    
 
     const [formData,setformData] = useState({
-            patientId:"",
+            patientId:patientId,
             therapistId:therapistId,
             name:"",
             phone:"",
@@ -23,11 +39,27 @@ const Booking = () => {
             appointmentDate:"",
             meetingmode:""
     })
+
+    useEffect(()=>{
+        let formObj = {...formData}
+        formObj["patientId"] = patientId
+        setformData(formObj)
+    },[patientId])
     
     const handleFormData = (e)=>{
         let formObj = {...formData}
         formObj[e.target.name] = e.target.value
         setformData(formObj)
+        // console.log(formData)
+    }
+
+    const bookAppointment = async()=>{
+        try{
+            let response = await axios.post("http://localhost:3000/session/book-session",formData)
+            setShowModal(true)
+        }catch(err){
+            alert(err.message)
+        }
     }
 
     return (
@@ -46,12 +78,13 @@ const Booking = () => {
                     <input type="date" className='mb-2 px-3 rounded-sm' name='appointmentDate' onChange={handleFormData}/>
                     <label className='font-semibold'>Preferred meeting mode</label>
                     <select className='pl-1 pr-14 py-1 rounded-sm' name='meetingmode' onChange={handleFormData}>
-                        <option value="">Phone Call</option>
-                        <option value="">Video Call</option>
-                        <option value="">In person visit</option>
+                        <option value="">Choose mode</option>
+                        <option value="Phone call">Phone Call</option>
+                        <option value="Video Call">Video Call</option>
+                        <option value="In Person Visit">In person visit</option>
                     </select>
                     <button 
-                    onClick={()=>setShowModal(true)}
+                    onClick={bookAppointment}
                     className='absolute bg-[#3311C7] px-5 py-3 text-white rounded-md bottom-0 right-0'>Book Appointment</button>
                     {showModal && <BookingModal setShowModal={setShowModal}/>}
                 </div>

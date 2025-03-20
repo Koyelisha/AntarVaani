@@ -5,7 +5,17 @@ const app = express()
 const cookieParser = require("cookie-parser")
 app.use(cookieParser())
 
-app.use(cors())
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || origin.startsWith("http://localhost")) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS not allowed"));
+        }
+    },
+    credentials: true
+}));
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 const db = require("./config/mongoose-connection")

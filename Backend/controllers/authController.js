@@ -47,7 +47,7 @@ module.exports.signupPatient = async (req, res) => {
 }
 
 module.exports.verifyOTP =  (req, res) => {
-    console.log(otpStore)
+    // console.log(otpStore)
     try {
         const { email, otp } = req.body;
 
@@ -58,9 +58,10 @@ module.exports.verifyOTP =  (req, res) => {
         if (otpStore[email].otp !== otp) {
             return res.status(400).send("Invalid OTP");
         }
+        console.log(otpStore[email].password)
 
         bcrypt.genSalt(10,(err, salt) => {
-            bcrypt.hash(otpStore[email].password, salt, async (err, hash) => {
+            bcrypt.hash(otpStore[email]?.password, salt, async (err, hash) => {
                 let patient = await patientModel.create({
                     fullname: otpStore[email].fullname,
                     email,
@@ -70,12 +71,16 @@ module.exports.verifyOTP =  (req, res) => {
                     isVerified:true
                 })
                 const token = generateToken(patient)
-                res.cookie("token",token)
-                res.status(200).json({message:"signup successful",token})
+                res.cookie("token",token, {
+                    httpOnly: true,
+                    sameSite: "Lax",
+                    secure: false
+                })
+                delete otpStore[email]
+                return res.status(200).json({message:"signup successful",token})
             })
         })
 
-        delete otpStore[email];
 
     } catch (err) {
         res.status(500).send(err.message);
@@ -86,14 +91,18 @@ module.exports.loginPatient = async(req,res)=>{
     try{
         let {email,password} = req.body
         let patient =  await patientModel.findOne({email});
-        console.log(patient);
+        // console.log(patient);
         if(!patient){
             return res.status(401).send("Email or Password Incorrect");
         }else{
             const isMatch = await bcrypt.compare(password,patient.password);
                 if(isMatch){
                     let token = generateToken(patient);
-                    res.cookie("token",token)
+                    res.cookie("token",token, {
+                        httpOnly: true,
+                        sameSite: "Lax",
+                        secure: false
+                    })
                     return res.status(200).json({message:"Login Successful",token});
                 }else{
                     return res.status(401).send("Email or Password Incorrect");
