@@ -117,4 +117,17 @@ router.patch("/reject/:sessionId", async (req, res) => {
     }
 })
 
+
+router.post("/addLink/:sessionId",async(req,res)=>{
+    try{
+        let {meetingLink} = req.body;
+        let sessions = await sessionModel.findOne({_id:req.params.sessionId})
+        sessions.additionalInfo = meetingLink;
+        await sessions.save()
+        return res.status(200).send("Link Addded successfully")
+    }catch(err){
+        return res.status(500).send(err.message)
+    }
+})
+
 module.exports = router;

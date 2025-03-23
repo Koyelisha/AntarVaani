@@ -19,7 +19,8 @@ const sessionSchema = mongoose.Schema({
         type:String,
         enum:["Accepted","Rejected","Pending"],
         default:"Pending"
-    }
+    },
+    additionalInfo:String
 })
 
 module.exports = mongoose.model("session",sessionSchema)
