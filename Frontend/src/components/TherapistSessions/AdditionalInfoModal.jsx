@@ -9,6 +9,7 @@ const AdditionalInfoModal = ({sessionId,setShowModal}) => {
     const addMeetingLink = async()=>{
         let response = await axios.post(`http://localhost:3000/session/addLink/${sessionId}`,{meetingLink})
         setShowModal(false)
+        window.location.reload()
     }
 
     return (

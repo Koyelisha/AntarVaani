@@ -5,7 +5,7 @@ const patientModel = require("../models/patient-model")
 const therapistModel = require("../models/therapist-model")
 const nodemailer = require("nodemailer")
 
-router.get("/",(req,res)=>{
+router.get("/", (req, res) => {
     res.send("Session route working..")
 })
 
@@ -62,7 +62,7 @@ router.patch("/accept/:sessionId", async (req, res) => {
             // res.send(patient.sessions)
             patient.sessions.push(session._id)
             await patient.save()
-            
+
 
             const therapist = await therapistModel.findOne({ _id: session.therapist })
             therapist.sessions.push(session._id)
@@ -72,7 +72,7 @@ router.patch("/accept/:sessionId", async (req, res) => {
             const mailOptions = {
                 from: "koyelisha7@gmail.com",
                 to: session.patient.email,
-                subject:"Confirmation Mail",
+                subject: "Confirmation Mail",
                 text: `Dear ${session.patient.fullname},
 
 We’re pleased to inform you that your therapy session has been successfully confirmed! Here are the details of your appointment:
@@ -82,7 +82,7 @@ We’re pleased to inform you that your therapy session has been successfully co
 👨‍⚕️ Therapist: ${session.therapist.fullname}
 📍 Meeting Mode: ${session.meetingmode} 
 
-Please ensure you are available at the scheduled time. If you need to reschedule or cancel, kindly contact us at least 10 hours in advance.${session.meetingmode==="Video Call"?"The Google meet link will be provided in the website":""}${session.meetingmode==="Phone Call"?"A time will be informed":""}
+Please ensure you are available at the scheduled time. If you need to reschedule or cancel, kindly contact us at least 10 hours in advance.${session.meetingmode === "Video Call" ? "The Google meet link will be provided in the website" : ""}${session.meetingmode === "Phone Call" ? "A time will be informed" : ""}
 
 If you have any questions, feel free to reach out. We look forward to supporting you on your journey to wellness.
 
@@ -101,15 +101,39 @@ Team AntarVaani
 })
 
 
-
 router.patch("/reject/:sessionId", async (req, res) => {
     try {
+        const { reason } = req.body;
         const session = await sessionModel.findOne({ _id: req.params.sessionId })
+            .populate("patient")
+            .populate("therapist")
+
         if (!session) {
             return res.status(404).send("Session not found")
         } else {
             session.status = "Rejected"
+            session.rejectionReason = reason
             await session.save()
+
+            const mailOptions = {
+                from: "koyelisha7@gmail.com",
+                to: session.patient.email,
+                subject: "Important Update: Your Therapy Session Has Been Canceled",
+                text: `Dear ${session.patient.fullname},
+
+I hope you’re doing well. I regret to inform you that your scheduled therapy session on ${new Date(session.appointmentDate).toLocaleDateString()} has been canceled due to ${session.rejectionReason}.
+
+I sincerely apologize for any inconvenience this may cause.
+
+Please feel free to reach out if you have any questions or need further assistance.
+
+Looking forward to your next session.
+
+Best Regards,
+Team AntarVaani
+8585093623`
+            }
+            await transporter.sendMail(mailOptions);
             return res.status(200).send("Session rejected")
         }
     } catch (err) {
@@ -118,14 +142,14 @@ router.patch("/reject/:sessionId", async (req, res) => {
 })
 
 
-router.post("/addLink/:sessionId",async(req,res)=>{
-    try{
-        let {meetingLink} = req.body;
-        let sessions = await sessionModel.findOne({_id:req.params.sessionId})
+router.post("/addLink/:sessionId", async (req, res) => {
+    try {
+        let { meetingLink } = req.body;
+        let sessions = await sessionModel.findOne({ _id: req.params.sessionId })
         sessions.additionalInfo = meetingLink;
         await sessions.save()
         return res.status(200).send("Link Addded successfully")
-    }catch(err){
+    } catch (err) {
         return res.status(500).send(err.message)
     }
 })

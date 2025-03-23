@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'
 import AdditionalInfoModal from './AdditionalInfoModal';
+import RejectionModal from './RejectionModal';
 
 const TherapistSessions = () => {
     const [allSessions, setAllSessions] = useState([])
     const [therapistToken, setTherapistToken] = useState("")
     const [decoded, setDecoded] = useState("")
     const [therapistId, setTherapistId] = useState("")
-    const [sessionAccepted,setSessionAccepted] = useState(false)
-    const [showModal,setShowModal] = useState(false);
-    const [loading,setLoading] = useState(false)
-    const [sessId,setSessId] = useState(false)
+    const [sessionAccepted, setSessionAccepted] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [showRejectModal, setShowRejectModal] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [sessId, setSessId] = useState(false)
+    const [rejectSessionId,setRejectSessionId] = useState("")
+    
 
     useEffect(() => {
         let storedToken = localStorage.getItem("therapistToken")
@@ -40,9 +44,8 @@ const TherapistSessions = () => {
     }, [therapistId])
 
 
-
     const acceptSession = async (e) => {
-        try{
+        try {
             let sessionId = e.target.parentElement.parentElement.id
             setLoading(true)
             let response = await axios.patch(`http://localhost:3000/session/accept/${sessionId}`)
@@ -50,20 +53,12 @@ const TherapistSessions = () => {
             alert("Session confirmed")
             setShowModal(true)
             setSessId(sessionId)
-        }catch(err){
+        } catch (err) {
             alert(err.message)
         }
     }
 
-    const rejectSession = async (e)=>{
-        try{
-            let sessionId = e.target.parentElement.parentElement.id
-            let response = await axios.patch(`http://localhost:3000/session/reject/${sessionId}`)
-            alert("Session rejected")
-        }catch(err){
-            alert(err.message)
-        }
-    }
+   
 
     return (
         <div className='h-screen bg-[#e8f4e4] py-24 px-16'>
@@ -80,35 +75,39 @@ const TherapistSessions = () => {
                     </tr>
                 </thead>
                 <tbody className='bg-[#D9D9D9]'>
-                    {allSessions.length===0?<h3 className='px-3 py-2'>No session request</h3>:<>{allSessions.map((session) => (
+                    {allSessions.length === 0 ? <h3 className='px-3 py-2'>No session request</h3> : <>{allSessions.map((session) => (
                         <tr key={session._id} id={session._id}>
                             <td className='text-center py-1'>{session.name}</td>
                             <td className='text-center py-1'>{new Date(session.appointmentDate).toLocaleDateString()} </td>
                             <td className='text-center py-1'>{session.meetingmode}</td>
                             <td className='text-center py-1'>{session.status}</td>
                             <td className='text-center py-1 flex gap-2 justify-center'>
-                                {session.status==="Pending"?<><button
+                                {session.status === "Pending" ? <><button
                                     onClick={acceptSession}
                                     className='bg-green-700 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'>Accept</button>
-                                <button 
-                                onClick={rejectSession}
-                                className='bg-red-600 px-4 py-1 text-white rounded-md text-sm hover:bg-red-500'>Reject</button>
-                                </>:null}
-                                {session.status==="Accepted"?<><button
+                                    <button
+                                        onClick={(e)=>{setShowRejectModal(true)
+                                            // console.log(e.target.parentElement.parentElement.id)
+                                            setRejectSessionId(e.target.parentElement.parentElement.id)
+                                        }}
+                                        className='bg-red-600 px-4 py-1 text-white rounded-md text-sm hover:bg-red-500'>Reject</button>
+                                </> : null}
+                                {session.status === "Accepted" ? <><button
                                     className='bg-green-700 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'><a href={session.additionalInfo}>Join</a></button>
-                                </>:null}
-                                {session.status==="Rejected"?<><button
+                                </> : null}
+                                {session.status === "Rejected" ? <><button
                                     className='bg-red-600 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'>Rejected</button>
-                                </>:null}
+                                </> : null}
                             </td>
                         </tr>
                     ))}
-                        
+
                     </>}
-                    
+
                 </tbody>
             </table>
-            {showModal && <AdditionalInfoModal sessionId={sessId} setShowModal={setShowModal}/>}
+            {showModal && <AdditionalInfoModal sessionId={sessId} setShowModal={setShowModal} />}
+            {showRejectModal && <RejectionModal setShowRejectModal={setShowRejectModal} rejectSessionId={rejectSessionId} />}
         </div>
     );
 };

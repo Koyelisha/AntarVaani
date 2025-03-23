@@ -10,7 +10,8 @@ const BookingModal = ({setShowModal}) => {
                     <h3 className='text-lg'>Great! Your session request is on its way.<br/> We'll notify you once the therapist confirms your booking!</h3>
                     {/* Until the session data gets stored in the db..show a loading button */}
                     <button 
-                    onClick={()=>{setShowModal(false)}}
+                    onClick={()=>{setShowModal(false) 
+                        window.location.reload()}}
                     className='bg-[#3311C7] px-5 py-3 text-white rounded-md w-full'>Close</button>
                 </div>
             </div>
