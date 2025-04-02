@@ -26,7 +26,7 @@ const RejectionModal = ({ setShowRejectModal, rejectSessionId }) => {
             <div className='mt-10 flex flex-col gap-5 text-black'>
                 <div className='bg-[#cac6c6] max-w-sm rounded-md px-5 py-5 flex flex-col gap-5 items-center mx-4 text-center'>
                     <h3 className='text-lg'>Enter the reason for cancellation</h3>
-                    <input className='w-full py-2 rounded-md' type="text" value={reason} onChange={(e) => { setReason(e.target.value) }} />
+                    <input className='w-full py-2 rounded-md px-2' type="text" value={reason} onChange={(e) => { setReason(e.target.value) }} />
                     <button
                         onClick={rejectSession}
                         className='bg-[#3311C7] px-5 py-3 text-white rounded-md w-full'>

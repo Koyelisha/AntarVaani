@@ -17,7 +17,7 @@ const sessionSchema = mongoose.Schema({
     meetingmode:String,
     status:{
         type:String,
-        enum:["Accepted","Rejected","Pending"],
+        // enum:["Accepted","Rejected","Pending","Cancelled"],
         default:"Pending"
     },
     additionalInfo:String,

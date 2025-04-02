@@ -96,7 +96,10 @@ const TherapistSessions = () => {
                                     className='bg-green-700 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'><a href={session.additionalInfo}>Join</a></button>
                                 </> : null}
                                 {session.status === "Rejected" ? <><button
-                                    className='bg-red-600 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'>Rejected</button>
+                                    className='bg-black px-5 py-1 text-white rounded-md text-sm hover:bg-zinc-700'>Rejected</button>
+                                </> : null}
+                                {session.status === "Cancelled" ? <><button
+                                    className='bg-black px-4 py-1 text-white rounded-md text-sm hover:bg-zinc-700'>Cancelled</button>
                                 </> : null}
                             </td>
                         </tr>

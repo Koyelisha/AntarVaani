@@ -16,6 +16,7 @@ import TherapistDashboard from './components/TherapistDashboard/TherapistDashboa
 import TherapistSessions from './components/TherapistSessions/TherapistSessions.jsx'
 import Booking from './components/Booking/Booking.jsx'
 import { AuthProvider } from "./Context/AuthContext";
+import UserEditProfile from './components/UserProfile.jsx/UserProfileEdit.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path='therapists' element={<Therapists />} />
         <Route path='booking/:therapistId' element={<Booking />} />
         <Route path='profile' element={<UserProfile />} />
+        <Route path='edit' element={<UserEditProfile/>}/>
       </Route>
       <Route path='therapist'>
         <Route path='signup' element={<TherapistsSignUp />} />

@@ -4,6 +4,7 @@ const router = express.Router()
 const { signupPatient,verifyOTP,loginPatient } = require("../controllers/authController")
 const therapistModel = require("../models/therapist-model")
 const sessionModel = require("../models/session-model")
+const nodemailer = require("nodemailer")
 
 router.get("/", (req, res) => {
     res.send("Hey!patient router working..")
@@ -25,32 +26,20 @@ router.get("/showTherapists",async(req,res)=>{
     
 })
 
-// Middleware: Check Auth
-// const authenticateUser = (req, res, next) => {
-//     const token = req.cookies.token;
-//     if (!token) return res.status(401).json({ message: "Unauthorized" });
-  
-//     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
-//       if (err) return res.status(403).json({ message: "Forbidden" });
-//       console.log("Decoded Token:", decoded); 
-//       req.userId = decoded.id;
-//       next();
-//     });
-//   };
-  
-//   // Get Authenticated User
-//   router.get("/api/auth/me", authenticateUser, async (req, res) => {
-//     // const user = await patientModel.findById(req.userId).select("-password");
-//     console.log("hello")
-//     const user = await patientModel.findOne({email:req.userId}).select("-password");
-//     if (!user) return res.status(404).json({ message: "User not found" });
-//     res.json({ user });
-//   });
+router.get("/profile/:patientId",async(req,res)=>{
+    try{
+        const patient = await patientModel.findOne({_id:req.params.patientId})
+        res.status(200).send(patient)
+    }catch(err){
+        res.status(500).send(err.message)
+    }
+    
+})
+
 
 router.get("/api",(req,res)=>{
   let token = req.cookies;
   res.send(token)
-  // res.send("hjgdsjfgsj")
 })
 
 router.get("/showSessions/:userId",async(req,res)=>{
@@ -60,7 +49,53 @@ router.get("/showSessions/:userId",async(req,res)=>{
     }catch(err){
         res.send(err.message)
     }
-   
+})
+
+
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:"koyelisha7@gmail.com",
+        pass: "unrz zjsu sheo zuxv"
+    }
+})
+
+router.patch("/reject/:sessionId",async(req,res)=>{
+    try{
+        console.log(req.params.sessionId)
+        let session = await sessionModel.findOne({_id:req.params.sessionId})
+        .populate("patient")
+        .populate("therapist")
+        let {reason} = req.body;
+        session.status = "Cancelled"
+        session.rejectionReason = reason;
+        await session.save();
+
+        const mailOptions = {
+            from:"koyelisha7@gmail.com",
+            to:session.therapist.email,
+            subject:"Therapy Session Cancellation Notification",
+            text:`Dear Dr. ${session.therapist.fullname},
+
+This is an automated notification to inform you that ${session.name} has canceled their scheduled therapy session on ${new Date(session.appointmentDate).toLocaleDateString()} due to ${session.rejectionReason}.
+
+If you wish to follow up with the patient regarding rescheduling, you may contact them directly or through the platform.
+Email and phone number of the patient are ${session.patient.email} and ${session.phone} respectively.
+
+For any concerns, feel free to reach out to the admin.
+
+Best regards,
+Team AntarVaani
+This is an automated email. Please do not reply directly.
+
+`
+        }
+
+        await transporter.sendMail(mailOptions)
+        return res.status(200).send("Session Cancelled Successfully")
+    }catch(err){
+        return res.status(500).send(err.message);
+    }
 })
 
 module.exports = router;
