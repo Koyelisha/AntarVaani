@@ -19,6 +19,8 @@ import { AuthProvider } from "./Context/AuthContext";
 import UserEditProfile from './components/UserProfile.jsx/UserProfileEdit.jsx'
 import Assessments from './components/Assesments/Assesments.jsx'
 import Chatbot from './components/Chatbot/Chatbot.jsx'
+import DailyChallenge from './components/DailyChallenge/DailyChallenge.jsx'
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
         <Route path='edit/:patientId' element={<UserEditProfile/>}/>
         <Route path='quiz' element={<Assessments/>}/>
         <Route path='chatbot' element={<Chatbot/>}/>
+        <Route path='dailyChallenge' element={<DailyChallenge/>}/>
+        
       </Route>
       <Route path='therapist'>
         <Route path='signup' element={<TherapistsSignUp />} />

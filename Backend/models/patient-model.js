@@ -17,7 +17,23 @@ const patientSchema = mongoose.Schema({
     isVerified:{
         type:Boolean,
         default:false
-    }
+    },
+    xp:{
+        type:Number,
+        default:0
+    },
+    streak:{
+        type:Number,
+        default:0
+    },
+    badges:[{
+        type:String
+    }],
+    lastPlayed: { type: Date },
+    completedChallenges: [{
+        date: Date,
+        challenge: String
+    }]
 })
 
 module.exports = mongoose.model("patient",patientSchema)

@@ -23,10 +23,12 @@ const db = require("./config/mongoose-connection")
 const patientRouter = require("./routes/patientRouter")
 const therapistRouter = require("./routes/therapistRouter")
 const sessionRouter = require("./routes/sessionRouter")
+const gameRouter = require("./routes/gameRouter")
 
 app.use("/patient",patientRouter)
 app.use("/therapist",therapistRouter)
 app.use("/session",sessionRouter)
+app.use("/game",gameRouter)
 
 app.get("/",(req,res)=>{
     res.send("hey it's working..")

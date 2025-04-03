@@ -59,6 +59,13 @@ const Header = () => {
                         Session Logs
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="/patient/dailyChallenge" className={({ isActive }) =>
+                        `${isActive ? "text-red-500" : null} hover:text-red-500 cursor-pointer`
+                    }>
+                        Play Game
+                    </NavLink>
+                </li>
             </ul>
             <ul className='flex gap-3 items-center'>
                 {isLoggedIn ? (<li className='bg-white px-5 py-1 rounded-xl font-semibold text-[#E07A5F] shadow-lg cursor-pointer hover:bg-zinc-200'>
