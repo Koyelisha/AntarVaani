@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useLoggedIn from '../../customHook/useLoggedIn/useLoggedIn';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faClipboardList, 
+    faFileCsv, 
+    faUserMd, 
+    faHeart,
+    faArrowRight
+  } from '@fortawesome/free-solid-svg-icons';
 
 const quizContent = [
     {
@@ -66,6 +75,7 @@ const quizContent = [
 ];
 
 const Assessments = () => {
+    useLoggedIn()
     const [answers, setAnswers] = useState(Array(quizContent.length).fill(null));
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
@@ -162,6 +172,19 @@ const Assessments = () => {
                         <p>{error}</p>
                     </div>
                 )}
+                  <div className="bg-white rounded-lg p-5 mb-8 shadow-sm border border-[#d1d5db]">
+                    <h3 className="text-xl font-semibold text-[#151516] mb-3">How your assessment works:</h3>
+                    <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                        <li className="pl-2">Complete all questions in this assessment</li>
+                        <li className="pl-2">Your answers will be converted to a CSV file</li>
+                        <li className="pl-2">Our system will analyze your responses</li>
+                        <li className="pl-2">You'll receive personalized therapist recommendations</li>
+                        <li className="pl-2">Get customized self-care suggestions based on your needs</li>
+                    </ol>
+                    <div className="mt-4 p-3 bg-blue-50 rounded text-sm text-blue-700">
+                        <p>Your responses are confidential and processed securely.</p>
+                    </div>
+                </div>
 
                 <div className='space-y-6'>
                     {quizContent.map((item, idx) => (

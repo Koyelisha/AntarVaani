@@ -12,6 +12,9 @@ from langchain.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -33,7 +36,7 @@ def initialize_components():
         # Initialize LLM
         llm = ChatGroq(
             temperature=0,
-            groq_api_key="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",
+            groq_api_key=os.getenv("GROQ_API_KEY"),
             model_name="llama-3.3-70b-versatile"
         )
 

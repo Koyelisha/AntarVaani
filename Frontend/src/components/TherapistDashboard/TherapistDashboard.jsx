@@ -44,7 +44,9 @@ const TherapistDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] py-8 px-4">
+    // <div className="min-h-screen bg-[#F5F7FA] py-20 px-4">
+    <div className="min-h-screen bg-[#F1FAEE] py-20 px-4">
+     
       <div className="max-w-6xl mx-auto">
         {/* Dashboard Header */}
         <div className="mb-8">

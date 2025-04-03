@@ -5,6 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from 'react-router-dom'
 
 const datas = [
     {
@@ -68,7 +69,7 @@ const images = [
 ]
 
 const Home = () => {
-
+    const navigate = useNavigate()
     return (
         <div className="bg-[#F1FAEE]">
             {/* Hero section */}
@@ -115,7 +116,9 @@ const Home = () => {
                             Career Issues
                         </div>
                     </div>
-                    <button className="bg-[#E07A5F] px-7 py-2 text-white rounded-md shadow-md mt-3 text-lg">Get Started</button>
+                    <button 
+                    onClick={()=>navigate("/patient/quiz")}
+                    className="bg-[#E07A5F] px-7 py-2 text-white rounded-md shadow-md mt-3 text-lg">Get Started</button>
                 </div>
             </div>
 
@@ -123,7 +126,9 @@ const Home = () => {
                 <div className="  flex flex-col gap-3 items-start">
                     <h1 className="text-2xl font-bold">Take a Free Mental Health Test Today! Know How You Feel.</h1>
                     <p className="text-lg">Scientifically validated standard assessments - quickest way to determine if <br />you are suffering from symptoms of any mental health disorder.</p>
-                    <button className="bg-[#E07A5F] px-7 py-2 text-white rounded-md shadow-md mt-3 text-lg">Get Started</button>
+                    <button
+                    onClick={()=>navigate("/patient/quiz")}
+                        className="bg-[#E07A5F] px-7 py-2 text-white rounded-md shadow-md mt-3 text-lg">Get Started</button>
                 </div>
                 <div>
                     <img className="h-72" src="https://www.felicity.care/assets/images/free_report_asset.webp" alt="" />
