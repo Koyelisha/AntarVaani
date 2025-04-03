@@ -17,6 +17,8 @@ import TherapistSessions from './components/TherapistSessions/TherapistSessions.
 import Booking from './components/Booking/Booking.jsx'
 import { AuthProvider } from "./Context/AuthContext";
 import UserEditProfile from './components/UserProfile.jsx/UserProfileEdit.jsx'
+import Assessments from './components/Assesments/Assesments.jsx'
+import Chatbot from './components/Chatbot/Chatbot.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +31,9 @@ const router = createBrowserRouter(
         <Route path='therapists' element={<Therapists />} />
         <Route path='booking/:therapistId' element={<Booking />} />
         <Route path='profile' element={<UserProfile />} />
-        <Route path='edit' element={<UserEditProfile/>}/>
+        <Route path='edit/:patientId' element={<UserEditProfile/>}/>
+        <Route path='quiz' element={<Assessments/>}/>
+        <Route path='chatbot' element={<Chatbot/>}/>
       </Route>
       <Route path='therapist'>
         <Route path='signup' element={<TherapistsSignUp />} />

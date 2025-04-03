@@ -32,7 +32,7 @@ const Header = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/quiz" className={({ isActive }) =>
+                    <NavLink to="/patient/quiz" className={({ isActive }) =>
                         `${isActive ? "text-red-500" : null} hover:text-red-500 cursor-pointer`
                     }>
                         AI assistance

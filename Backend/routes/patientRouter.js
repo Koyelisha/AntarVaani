@@ -98,4 +98,24 @@ This is an automated email. Please do not reply directly.
     }
 })
 
+router.put("/update/:patientId",async(req,res)=>{
+    try{
+        const id = req.params.patientId;
+        console.log(req.body)
+        let {fullname,email,contact,age,address,bio} = req.body;
+        const updatedPatient = await patientModel.findByIdAndUpdate({_id:id},{
+            fullname,
+            email,
+            contact,
+            age,
+            address,
+            bio
+        })
+        // console.log(updatedPatient)
+        res.send(updatedPatient)
+    }catch(err){
+        res.send(err.message)
+    }
+})
+
 module.exports = router;

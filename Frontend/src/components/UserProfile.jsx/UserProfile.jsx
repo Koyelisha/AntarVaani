@@ -56,7 +56,7 @@ const UserProfile = () => {
                 <div>
                     <div className="flex gap-4">
                         <button 
-                        onClick={()=>{navigate("/patient/edit")}}
+                        onClick={()=>{navigate(`/patient/edit/${patientId}`)}}
                         className="bg-[#E07A5F] px-5 py-2 font-semibold rounded-md shadow-md">
                             <FontAwesomeIcon icon={faEdit} /> Edit Profile
                         </button>
@@ -66,12 +66,12 @@ const UserProfile = () => {
                     </div>
                     <div className="flex flex-col gap-3 mt-2">
                         <h1 className="text-5xl font-bold">{patientData.fullname}</h1>
-                        <p className="text-2xl font-semibold">A short bio about the user</p>
-                        <h2 className="text-3xl font-semibold">21 yrs</h2>
+                        <p className="text-2xl font-semibold">{patientData.bio}</p>
+                        <h2 className="text-3xl font-semibold">{patientData.age} yrs</h2>
                         <h3 className="text-xl">(+91) {patientData.contact}</h3>
                         <h3 className="text-xl">{patientData.email}</h3>
-                        <h3 className="text-xl">123, Street, 45/9 Avenue, Jonson Acres,<br />New California, USA</h3>
-                        <h3 className="text-xl font-semibold">MXISH5166G</h3>
+                        <h3 className="text-xl">{patientData.address}</h3>
+                        <h3 className="text-xl font-semibold">Account Verfication: {patientData.isVerified?"Done":"Not done"}</h3>
                         <div className="bg-[#BFA9A9] px-28 py-4 rounded-md flex flex-col gap-3 items-center">
                             <h3 className="text-2xl font-bold">My Stress Level Tracker</h3>
                             <div className="border-4 border-black h-36 w-36 p-3 rounded-md">
