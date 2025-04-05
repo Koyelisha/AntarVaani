@@ -63,7 +63,7 @@ const UserSessions = () => {
                             <td className='text-center py-1'>{session.status}</td>
                             <td className='text-center py-1 flex gap-2 justify-center'>
                                 {session.status === "Pending" ? <><button
-                                    className='bg-green-700 px-4 py-1 text-white rounded-sm text-sm hover:bg-green-600'>Pending</button>
+                                    className='bg-green-700 px-4 py-1 text-white rounded-md text-sm hover:bg-green-600'>Pending</button>
 
                                 </> : null}
                                 {session.status === "Accepted" ? <><button

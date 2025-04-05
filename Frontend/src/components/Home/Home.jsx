@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from 'react-router-dom'
+import StressInput from '../Modals/StressInput';
 
 const datas = [
     {
@@ -73,6 +74,7 @@ const Home = () => {
     return (
         <div className="bg-[#F1FAEE]">
             {/* Hero section */}
+            <StressInput/>
             <div>
                 <Slider {...settings2}>
                     {images.map((image) => (

@@ -61,7 +61,7 @@ const DailyChallenge = () => {
     }, [patientId,status])
 
     return (
-        <div className="h-screen bg-[#F1FAEE] p-4 py-32">
+        <div className="h-screen bg-[#e8f4e4] p-4 py-32">
             <div className="max-w-4xl w-full mx-auto">
                 {/* Header */}
                 <div className="mb-8 text-center">
